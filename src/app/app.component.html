@@ -1,2 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>CampDiaries</span>
+        <button mat-button [matMenuTriggerFor]="menu">Onboard</button>
+        <mat-menu #menu="matMenu">
+            <button routerLink="/student" mat-menu-item>Student</button>
+            <button routerLink="/activity" mat-menu-item>Actvitiy</button>
+            <button routerLink="/volunteer" mat-menu-item>Volunteer</button>
+            <button routerLink="/school" mat-menu-item>School</button>
+        </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>
 <router-outlet></router-outlet>

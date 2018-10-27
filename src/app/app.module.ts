@@ -7,22 +7,49 @@ import { NgModule } from '@angular/core';
 import {MatInputModule} from '@angular/material';
 import {MatCardModule} from '@angular/material';
 import {MatGridListModule} from '@angular/material';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddStudentComponent } from './add-student/add-student.component';
+import { AddStudentComponent } from './student/add-student/add-student.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FirebaseCredentials } from '../environments/firebase-credentials';
+import { StudentListComponent } from './student/student-list/student-list.component';
+import { AddActivityComponent } from './activity/add-activity/add-activity.component';
+import { ListActivityComponent } from './activity/list-activity/list-activity.component';
+import { AddSchoolComponent } from './school/add-school/add-school.component';
+import { ListSchoolComponent } from './school/list-school/list-school.component';
+import { AddVolunteerComponent } from './volunteer/add-volunteer/add-volunteer.component';
+import { ListVolunteerComponent } from './volunteer/list-volunteer/list-volunteer.component';
+import { VolunteerComponent } from './volunteer/volunteer/volunteer.component';
+import { StudentComponent } from './student/student/student.component';
+import { SchoolComponent } from './school/school/school.component';
+import { ActivityComponent } from './activity/activity/activity.component';
+import { ListStudentComponent } from './student/list-student/list-student.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    StudentListComponent,
+    AddActivityComponent,
+    ListActivityComponent,
+    AddSchoolComponent,
+    ListSchoolComponent,
+    AddVolunteerComponent,
+    ListVolunteerComponent,
+    VolunteerComponent,
+    StudentComponent,
+    SchoolComponent,
+    ActivityComponent,
+    ListStudentComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +61,8 @@ import { FirebaseCredentials } from '../environments/firebase-credentials';
     MatCardModule,
     MatGridListModule,
     MatIconModule,
+    MatToolbarModule,
+    MatMenuModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(FirebaseCredentials.firebase),
     AngularFireStorageModule,
