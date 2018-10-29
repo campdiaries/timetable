@@ -20,7 +20,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FirebaseCredentials } from '../environments/firebase-credentials';
-import { StudentListComponent } from './student/student-list/student-list.component';
 import { AddActivityComponent } from './activity/add-activity/add-activity.component';
 import { ListActivityComponent } from './activity/list-activity/list-activity.component';
 import { AddSchoolComponent } from './school/add-school/add-school.component';
@@ -38,7 +37,6 @@ import { ListStudentComponent } from './student/list-student/list-student.compon
   declarations: [
     AppComponent,
     AddStudentComponent,
-    StudentListComponent,
     AddActivityComponent,
     ListActivityComponent,
     AddSchoolComponent,
