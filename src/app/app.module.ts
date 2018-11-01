@@ -31,6 +31,7 @@ import { StudentComponent } from './student/student/student.component';
 import { SchoolComponent } from './school/school/school.component';
 import { ActivityComponent } from './activity/activity/activity.component';
 import { ListStudentComponent } from './student/list-student/list-student.component';
+import { CoreModule } from './core/core.module';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { ListStudentComponent } from './student/list-student/list-student.compon
     AngularFireModule.initializeApp(FirebaseCredentials.firebase),
     AngularFireStorageModule,
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
