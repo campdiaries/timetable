@@ -6,9 +6,12 @@ import { User } from 'src/app/models/user';
 import * as firebase from 'firebase';
 import { Student } from 'src/app/models/Student';
 import { Activity } from 'src/app/models/Activity';
+import { Session } from 'src/app/models/Session';
+import { School } from 'src/app/models/School';
 
 const STUDENTS_COLLECTION = 'students';
 const ACTIVITIES_COLLECTION = 'activities';
+const SESSIONS_COLLECTION = 'sessions';
 const SCHOOL_COLLECTION = 'schools';
 const TIMETABLE_COLLECTION = 'timetable';
 const USERS_COLLECTION = 'users';
@@ -106,5 +109,74 @@ export class DataService {
     return this.firestore.collection<Activity>(ACTIVITIES_COLLECTION).doc(activityId).delete();
   }
 
+  // add & modify
+  addSession(session: Session) {
+    return this.firestore.collection<Session>(SESSIONS_COLLECTION).doc(session.sessionId).set(session, { merge: true });
+  }
+
+  getSession(sessionId: string) {
+    return this.firestore.collection<Session>(SESSIONS_COLLECTION).doc(sessionId).valueChanges();
+  }
+
+  getSessionsByName(name: string) {
+    return this.firestore.collection<Session>(SESSIONS_COLLECTION, ref => ref.where('name', '==', name)).valueChanges();
+  }
+
+  getSessionsByDate(date: Date) {
+    return this.firestore.collection<Session>(SESSIONS_COLLECTION, ref => ref.where('time', '==', date).orderBy('time')).valueChanges();
+  }
+
+  getAllSessions(sortField: string, asc: boolean, limit?: number) {
+    if (limit) {
+      return this.firestore.collection<Session>(SESSIONS_COLLECTION,
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc').limit(limit)).valueChanges();
+    } else {
+      return this.firestore.collection<Session>(SESSIONS_COLLECTION,
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
+    }
+  }
+
+  // use only with matching cases
+  searchSessionByName(sessionName: string) {
+    return this.firestore.collection<Session>(SESSIONS_COLLECTION, ref =>
+      ref.where('name', '>', sessionName).where('name', '<', `${sessionName}z`).orderBy('name')).valueChanges();
+  }
+
+  deleteSession(sessionId: string) {
+    return this.firestore.collection<Session>(SESSIONS_COLLECTION).doc(sessionId).delete();
+  }
+
+  // add & modify
+  addSchool(school: School) {
+    return this.firestore.collection<School>(SCHOOL_COLLECTION).doc(school.schoolId).set(school, { merge: true });
+  }
+
+  getSchool(schoolId: string) {
+    return this.firestore.collection<School>(SCHOOL_COLLECTION).doc(schoolId).valueChanges();
+  }
+
+  getSchoolByName(name: string) {
+    return this.firestore.collection<School>(SCHOOL_COLLECTION, ref => ref.where('name', '==', name)).valueChanges();
+  }
+
+  getAllSchools(sortField: string, asc: boolean, limit?: number) {
+    if (limit) {
+      return this.firestore.collection<School>(SCHOOL_COLLECTION,
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc').limit(limit)).valueChanges();
+    } else {
+      return this.firestore.collection<School>(SCHOOL_COLLECTION,
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
+    }
+  }
+
+  // use only with matching cases
+  searchSchoolByName(schoolName: string) {
+    return this.firestore.collection<School>(SCHOOL_COLLECTION, ref =>
+      ref.where('name', '>', schoolName).where('name', '<', `${schoolName}z`).orderBy('name')).valueChanges();
+  }
+
+  deleteSchool(schoolId: string) {
+    return this.firestore.collection<School>(SCHOOL_COLLECTION).doc(schoolId).delete();
+  }
 
 }
