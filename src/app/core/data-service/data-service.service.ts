@@ -5,6 +5,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { User } from 'src/app/models/user';
 import * as firebase from 'firebase';
 import { Student } from 'src/app/models/Student';
+import { Activity } from 'src/app/models/Activity';
 
 const STUDENTS_COLLECTION = 'students';
 const ACTIVITIES_COLLECTION = 'activities';
@@ -39,7 +40,7 @@ export class DataService {
 
   // add & modify
   addStudent(student: Student) {
-    return this.firestore.collection<Student>(STUDENTS_COLLECTION).doc(student.studentId).set(student);
+    return this.firestore.collection<Student>(STUDENTS_COLLECTION).doc(student.studentId).set(student, { merge: true });
   }
 
   getStudent(studentId: string) {
@@ -66,6 +67,44 @@ export class DataService {
       ref.where('name', '>', name).where('name', '<', `${name}z`).orderBy('name')).valueChanges();
   }
 
+  deleteStudent(studentId) {
+    return this.firestore.collection<Student>(STUDENTS_COLLECTION).doc(studentId).delete();
+  }
+
+  // add & modify
+  addActivity(activity: Activity) {
+    return this.firestore.collection<Activity>(ACTIVITIES_COLLECTION).doc(activity.activityId).set(activity, { merge: true });
+  }
+
+  getActivity(activityId: string) {
+    return this.firestore.collection<Activity>(ACTIVITIES_COLLECTION).doc(activityId).valueChanges();
+  }
+
+  // for getting activites under activityLead or by name
+  getActivitiesByAttribute(attributeName: string, attributeValue: string, asc: boolean) {
+    return this.firestore.collection<Activity>(ACTIVITIES_COLLECTION,
+      ref => ref.where(attributeName, '==', attributeValue).orderBy(attributeName, asc ? 'asc' : 'desc')).valueChanges();
+  }
+
+  getAllActivities(sortField: string, asc: boolean, limit?: number) {
+    if (limit) {
+      return this.firestore.collection<Activity>(ACTIVITIES_COLLECTION,
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc').limit(limit)).valueChanges();
+    } else {
+      return this.firestore.collection<Activity>(ACTIVITIES_COLLECTION,
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
+    }
+  }
+
+  // use only with matching cases
+  searchActivityByName(activityName: string) {
+    return this.firestore.collection<Activity>(ACTIVITIES_COLLECTION, ref =>
+      ref.where('name', '>', activityName).where('name', '<', `${activityName}z`).orderBy('name')).valueChanges();
+  }
+
+  deleteActivity(activityId: string) {
+    return this.firestore.collection<Activity>(ACTIVITIES_COLLECTION).doc(activityId).delete();
+  }
 
 
 }
