@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/User';
 import * as firebase from 'firebase/app';
 import { switchMap } from 'rxjs/operators';
 @Injectable({
@@ -12,10 +12,15 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService {
 
   user: Observable<User>;
-  constructor(private afAuth: AngularFireAuth, private afStore: AngularFirestore, private router: Router) {
+  constructor(private afAuth: AngularFireAuth, private afStore: AngularFirestore, private router: Router, private zone: NgZone) {
     this.afAuth.auth.getRedirectResult().then(cred => {
-      this.updateUserData(cred.user);
-      this.router.navigate(['']);
+      if (cred.user) {
+        console.log('successfully signed-in ', cred.user);
+        this.updateUserData(cred.user);
+        this.zone.run(_ => {
+          this.router.navigate(['']);
+        });
+      }
     }).catch(err => {
       console.error(err);
     });
@@ -56,6 +61,7 @@ export class AuthService {
   }
 
   isAuthorized(user: User): boolean {
+    console.log(user);
     return user.isVolunteer || user.isAdmin;
   }
 

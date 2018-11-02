@@ -17,6 +17,9 @@ export class AuthGuard implements CanActivate {
 
     return this.authService.user.pipe(
       take(1),
+      tap(user => {
+        console.log('in tap ', user);
+      }),
       map(user => this.authService.isAuthorized(user)),
       tap(isAuthorized => {
         if (!isAuthorized) {
