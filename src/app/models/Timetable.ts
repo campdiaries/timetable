@@ -1,5 +1,5 @@
 export interface Timetable {
-    timetableId: String;
+    timetableId: string;
     noOfSession: number;
     sessions: any[];
 }

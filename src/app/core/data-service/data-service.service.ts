@@ -8,6 +8,9 @@ import { Student } from 'src/app/models/Student';
 import { Activity } from 'src/app/models/Activity';
 import { Session } from 'src/app/models/Session';
 import { School } from 'src/app/models/School';
+import { Volunteer } from 'src/app/models/Volunteer';
+import { when } from 'q';
+import { Timetable } from 'src/app/models/Timetable';
 
 const STUDENTS_COLLECTION = 'students';
 const ACTIVITIES_COLLECTION = 'activities';
@@ -177,6 +180,72 @@ export class DataService {
 
   deleteSchool(schoolId: string) {
     return this.firestore.collection<School>(SCHOOL_COLLECTION).doc(schoolId).delete();
+  }
+
+  // add & modify
+  addVolunteer(volunteer: Volunteer) {
+    return this.firestore.collection<Volunteer>(VOLUNTEERS_COLLECTION).doc(volunteer.volunteerId).set(volunteer, { merge: true });
+  }
+
+  getVolunteer(volunteerId: string) {
+    return this.firestore.collection<Volunteer>(VOLUNTEERS_COLLECTION).doc(volunteerId).valueChanges();
+  }
+
+  getVolunteerByName(volunteerName: string) {
+    return this.firestore.collection<Volunteer>(VOLUNTEERS_COLLECTION, ref => ref.where('name', '==', volunteerName)).valueChanges();
+  }
+
+  getAllVolunteers(sortField: string, asc: boolean, limit?: number) {
+    if (limit) {
+      return this.firestore.collection<Volunteer>(VOLUNTEERS_COLLECTION,
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc').limit(limit)).valueChanges();
+    } else {
+      return this.firestore.collection<Volunteer>(VOLUNTEERS_COLLECTION,
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
+    }
+  }
+
+  getVolunteersByActivity(activityId: string, asc: boolean) {
+    return this.firestore.collection<Volunteer>(VOLUNTEERS_COLLECTION,
+      ref => ref.where('activity', '==', activityId).orderBy('name', asc ? 'asc' : 'desc')).valueChanges();
+  }
+
+  // use only with matching cases
+  searchVolunteerByName(volunteerName: string) {
+    return this.firestore.collection<Volunteer>(VOLUNTEERS_COLLECTION, ref =>
+      ref.where('name', '>', volunteerName).where('name', '<', `${volunteerName}z`).orderBy('name')).valueChanges();
+  }
+
+  deleteVolunteer(volunteerId: string) {
+    return this.firestore.collection<Volunteer>(VOLUNTEERS_COLLECTION).doc(volunteerId).delete();
+  }
+
+  // add & modify
+  addTimetable(timetable: Timetable) {
+    return this.firestore.collection<Timetable>(TIMETABLE_COLLECTION).doc(timetable.timetableId).set(timetable, { merge: true });
+  }
+
+  getTimetable(timetableId: string) {
+    return this.firestore.collection<Timetable>(TIMETABLE_COLLECTION).doc(timetableId).valueChanges();
+  }
+
+  deleteTimetable(timetableId: string) {
+    return this.firestore.collection<Timetable>(TIMETABLE_COLLECTION).doc(timetableId).delete();
+  }
+
+  // upload file,
+  // tslint:disable-next-line:max-line-length
+  // use detectFiles for reference from https://github.com/DarshanGowda0/new-reaching-hands/blob/master/src/app/components/common/student-details/add-student-log/add-student-log.component.ts
+
+  uploadFileToStorage(file: File) {
+    // Client-side validation example
+    if (file.type.split('/')[0] !== 'image') {
+      console.error('unsupported file type :( ');
+      return;
+    }
+    const path = `/Images/${new Date().getTime()}_${file.name}`;
+    const customMetadata = { app: 'Students Images' };
+    return this.storage.upload(path, file, { customMetadata });
   }
 
 }
