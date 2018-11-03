@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
       tap(user => {
         console.log('in tap ', user);
       }),
-      map(user => this.authService.isAuthorized(user)),
+      map(user => user && this.authService.isAuthorized(user)),
       tap(isAuthorized => {
         if (!isAuthorized) {
           console.error('Not Authorized!');

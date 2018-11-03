@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/User';
 import * as firebase from 'firebase';
 import { Student } from 'src/app/models/Student';
 import { Activity } from 'src/app/models/Activity';
 import { Session } from 'src/app/models/Session';
 import { School } from 'src/app/models/School';
 import { Volunteer } from 'src/app/models/Volunteer';
-import { when } from 'q';
 import { Timetable } from 'src/app/models/Timetable';
 
 const STUDENTS_COLLECTION = 'students';

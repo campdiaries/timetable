@@ -24,9 +24,21 @@ const routes: Routes = [
     component: StudentComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'volunteer', component: VolunteerComponent },
-  { path: 'school', component: SchoolComponent },
-  { path: 'activity', component: ActivityComponent },
+  {
+    path: 'volunteer',
+    component: VolunteerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'school',
+    component: SchoolComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'activity',
+    component: ActivityComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({
