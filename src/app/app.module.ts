@@ -31,6 +31,8 @@ import { StudentComponent } from './student/student/student.component';
 import { SchoolComponent } from './school/school/school.component';
 import { ActivityComponent } from './activity/activity/activity.component';
 import { ListStudentComponent } from './student/list-student/list-student.component';
+import { CoreModule } from './core/core.module';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -47,7 +49,8 @@ import { ListStudentComponent } from './student/list-student/list-student.compon
     StudentComponent,
     SchoolComponent,
     ActivityComponent,
-    ListStudentComponent
+    ListStudentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { ListStudentComponent } from './student/list-student/list-student.compon
     AngularFireModule.initializeApp(FirebaseCredentials.firebase),
     AngularFireStorageModule,
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
