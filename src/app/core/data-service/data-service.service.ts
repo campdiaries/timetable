@@ -9,7 +9,6 @@ import { Activity } from 'src/app/models/Activity';
 import { Session } from 'src/app/models/Session';
 import { School } from 'src/app/models/School';
 import { Volunteer } from 'src/app/models/Volunteer';
-import { when } from 'q';
 import { Timetable } from 'src/app/models/Timetable';
 
 const STUDENTS_COLLECTION = 'students';
