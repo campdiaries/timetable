@@ -35,6 +35,8 @@ import { CoreModule } from './core/core.module';
 import { LoginComponent } from './login/login.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatListModule} from '@angular/material/list';
+
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     AngularFireAuthModule,
     CoreModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

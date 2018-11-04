@@ -1,3 +1,7 @@
-<p>
-  list-student works!
-</p>
+<mat-list>
+  <h3 mat-subheader>Students</h3>
+  <mat-list-item *ngFor="let student of students">
+    <mat-icon mat-list-icon>folder</mat-icon>
+    <h4 mat-line>{{student.studentName}}</h4>
+  </mat-list-item>
+</mat-list>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { DataService } from 'src/app/core/data-service/data-service.service';
@@ -24,6 +24,8 @@ export class AddStudentComponent implements OnInit {
   students: Observable<IStudent[]>;
   activities: any[];
   student: Student;
+  @ViewChild('profilePicInput')
+  profilePicInput:ElementRef;
  
   private studentCollection: AngularFirestoreCollection<IStudent>
 
@@ -89,6 +91,7 @@ export class AddStudentComponent implements OnInit {
 
 
   clearForm() {
+    this.profilePicInput.nativeElement.value = "";
     this.addStudentForm = this.fb.group({
       studentId: '',
       studentName: '',
