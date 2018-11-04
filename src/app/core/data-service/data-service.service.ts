@@ -18,7 +18,7 @@ const SCHOOL_COLLECTION = 'schools';
 const TIMETABLE_COLLECTION = 'timetable';
 const USERS_COLLECTION = 'users';
 const VOLUNTEERS_COLLECTION = 'volunteers';
-const APP_SETTINGS='appsettings';
+const APP_SETTINGS = 'appsettings';
 
 @Injectable({
   providedIn: 'root'
@@ -29,21 +29,21 @@ export class DataService {
 
   // logged in user
   user: User;
-  
- 
+
+
 
 
   constructor(private authService: AuthService, private firestore: AngularFirestore, private storage: AngularFireStorage) {
     this.authService.user.subscribe(mUser => {
       this.user = mUser;
     });
-    
+
   }
 
   generateRandomId() {
     return this.firestore.createId();
   }
-  
+
 
   getServerTimestamp() {
     return firebase.firestore.FieldValue.serverTimestamp();

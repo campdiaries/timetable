@@ -3,5 +3,5 @@ export interface Student {
     studentName: string;
     studentGrade: number;
     profilePicUrl: string;
-    selectedActivities:any[]
+    selectedActivities: any[];
 }

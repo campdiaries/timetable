@@ -1,4 +1,4 @@
-import { Component ,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from './core/data-service/data-service.service';
 
 @Component({
@@ -6,9 +6,9 @@ import { DataService } from './core/data-service/data-service.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
+export class AppComponent {
 
 
   title = 'app';
- 
+
 }

@@ -11,16 +11,16 @@ import { Student } from 'src/app/models/Student';
 })
 export class ListStudentComponent implements OnInit {
 
-    students:Student[];
-    constructor(private ds:DataService) {
-    }
-  
+  students: Student[];
+  constructor(private ds: DataService) {
+  }
+
 
   ngOnInit() {
-    this.ds.getAllStudents('studentName',true).subscribe(data=>{
-      console.log(data)
-      this.students=data;
-    })
+    this.ds.getAllStudents('studentName', true).subscribe(data => {
+      console.log(data);
+      this.students = data;
+    });
 
   }
 

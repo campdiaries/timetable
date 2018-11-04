@@ -1,15 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material/button'
-import {MatFormFieldModule} from '@angular/material/form-field'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgModule } from '@angular/core';
-import {MatInputModule} from '@angular/material';
-import {MatCardModule} from '@angular/material';
-import {MatGridListModule} from '@angular/material';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatInputModule } from '@angular/material';
+import { MatCardModule } from '@angular/material';
+import { MatGridListModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,9 +33,9 @@ import { ActivityComponent } from './activity/activity/activity.component';
 import { ListStudentComponent } from './student/list-student/list-student.component';
 import { CoreModule } from './core/core.module';
 import { LoginComponent } from './login/login.component';
-import {MatSelectModule} from '@angular/material/select';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatListModule} from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({

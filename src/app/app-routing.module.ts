@@ -39,6 +39,10 @@ const routes: Routes = [
     component: ActivityComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'student/edit/:id',
+    component: StudentComponent
+  }
 ];
 
 @NgModule({

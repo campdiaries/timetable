@@ -1,3 +1,3 @@
-export const AppSettings={
-    noOfActivitiesPerChild:3
-}
+export const AppSettings = {
+    noOfActivitiesPerChild: 3
+};
