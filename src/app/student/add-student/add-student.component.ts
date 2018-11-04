@@ -5,6 +5,9 @@ import { DataService } from 'src/app/core/data-service/data-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 import { Student } from '../../models/Student';
+import {AppSettings} from 'src/environments/AppSettings';
+import {MatSnackBar} from '@angular/material';
+
 export interface IStudent {
   name: string;
   grade: number;
@@ -17,41 +20,54 @@ export interface IStudent {
 })
 export class AddStudentComponent implements OnInit {
   addStudentForm: FormGroup;
-  fileUploading: boolean = false;
+  loading: boolean = false;
   students: Observable<IStudent[]>;
   activities: any[];
   student: Student;
+ 
   private studentCollection: AngularFirestoreCollection<IStudent>
 
-  constructor(db: AngularFirestore, private afs: AngularFirestore, private ds: DataService, private fb: FormBuilder) {
-
+  constructor(private sb:MatSnackBar, private afs: AngularFirestore, private ds: DataService, private fb: FormBuilder) {
   }
 
 
 
 
   onFileChange($event) {
-    console.log($event.target.files[0])
-    this.fileUploading = true;
-    const uploadRes = this.ds.uploadFileToStorage($event.target.files[0]);
-    uploadRes.percentageChanges().subscribe((val) => {
-      console.log(val);
+   // console.log($event.target.files[0])
+    this.loading = true;
+    const task = this.ds.uploadFileToStorage($event.target.files[0]);
+    task.snapshotChanges().subscribe((val) => {
+      
+      let downloadUrl=val.downloadURL;
+      this.addStudentForm.patchValue({ profilePicUrl: downloadUrl || '' })
+      this.loading = false;
     })
-
-    uploadRes.snapshotChanges().subscribe((val) => {
-      this.addStudentForm.patchValue({ profilePicUrl: val })
-      this.fileUploading = false;
-    })
-
+  
   }
 
   addStudent() {
-    const studentId=this.ds.generateRandomId();
-    this.addStudentForm.patchValue({studentId:studentId})
+
+    const studentId = this.ds.generateRandomId();
+    this.addStudentForm.patchValue({ studentId: studentId })
     const student: Student = this.addStudentForm.value
-    this.ds.addStudent(student)
+    console.log(this.addStudentForm.value)
+    this.loading=true;
+    this.ds.addStudent(student).then((data)=>{
+      console.log(data)
+      this.loading=false;
+      this.clearForm();
+      this.sb.open("Student has been added", "okay", {
+        duration: 2000,
+      });
+
+    })
+
 
   }
+
+  selectedActCtrl: any;
+  noOfActi: number
 
   ngOnInit() {
     this.addStudentForm = this.fb.group({
@@ -59,10 +75,10 @@ export class AddStudentComponent implements OnInit {
       studentName: '',
       studentGrade: 0,
       profilePicUrl: '',
-      act1: '',
-      act2: '',
-      act3: '',
+      selectedActivities: this.fb.array(this.createFGActivity(AppSettings.noOfActivitiesPerChild)),
     });
+    this.selectedActCtrl = this.addStudentForm.get('selectedActivities') as FormArray;
+
     this.ds.getAllActivities('name', true).subscribe(data => {
       console.log(data);
       this.activities = data;
@@ -73,7 +89,22 @@ export class AddStudentComponent implements OnInit {
 
 
   clearForm() {
+    this.addStudentForm = this.fb.group({
+      studentId: '',
+      studentName: '',
+      studentGrade: 0,
+      profilePicUrl: '',
+      selectedActivities: this.fb.array(this.createFGActivity(AppSettings.noOfActivitiesPerChild)),
+    });
 
+  }
+
+  createFGActivity(no: number): FormGroup[] {
+    const fbgroups: FormGroup[] = [];
+    for (let i = 0; i < no; i++) {
+      fbgroups.push(this.fb.group({ name: '' }))
+    }
+    return fbgroups;
   }
 
 }
