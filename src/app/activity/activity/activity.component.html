@@ -1,4 +1,8 @@
-<mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile><app-add-activity></app-add-activity></mat-grid-tile>
-    <mat-grid-tile><app-list-activity></app-list-activity></mat-grid-tile>
-  </mat-grid-list>
+<mat-tab-group [(selectedIndex)]="selectedTab">
+    <mat-tab label="Add activity" (click)="tabClick('Add activity')">
+        <app-add-activity></app-add-activity>
+    </mat-tab>
+    <mat-tab label="List activity">
+        <app-list-activity (changeTab)="setTab($event)"></app-list-activity>
+    </mat-tab>
+</mat-tab-group>

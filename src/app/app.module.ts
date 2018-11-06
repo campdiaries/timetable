@@ -36,7 +36,7 @@ import { LoginComponent } from './login/login.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
-
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -75,7 +75,8 @@ import { MatListModule } from '@angular/material/list';
     CoreModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

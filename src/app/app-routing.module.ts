@@ -41,16 +41,17 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'student/edit/:id',
-    component: StudentComponent
-  },
-  {
     path: 'add-update-student',
     component: AddStudentComponent,
   },
   {
     path: 'add-update-student/:id',
     component: AddStudentComponent,
+  },
+  {
+    path: 'activity/:id',
+    component: ActivityComponent
+
   }
 ];
 

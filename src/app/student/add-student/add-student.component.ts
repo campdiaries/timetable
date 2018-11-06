@@ -9,11 +9,6 @@ import { AppSettings } from 'src/environments/AppSettings';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Route, Router, NavigationEnd } from '@angular/router';
 
-export interface IStudent {
-  name: string;
-  grade: number;
-}
-
 @Component({
   selector: 'app-add-student',
   templateUrl: './add-student.component.html',
@@ -22,7 +17,6 @@ export interface IStudent {
 export class AddStudentComponent implements OnInit {
   addStudentForm: FormGroup;
   loading = false;
-  students: Observable<IStudent[]>;
   activities: any[];
   student: Student;
   actionBtnName = 'Add Student';
@@ -65,7 +59,7 @@ export class AddStudentComponent implements OnInit {
     }
 
     const student: Student = this.addStudentForm.value;
-    console.log(this.addStudentForm.value);
+    console.log(student);
     this.loading = true;
     this.ds.addStudent(student).then((data) => {
       this.loading = false;
