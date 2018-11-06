@@ -26,6 +26,9 @@ export class AddStudentComponent implements OnInit {
   selectedActCtrl: any;
   noOfActi: number;
 
+  readonly ADD_STDNT_BTN_NAME = 'Add Student';
+  readonly UPDT_STDNT_BTN_NAME = 'Update Student';
+
 
   constructor(private router: Router, private route: ActivatedRoute, private sb: MatSnackBar, private afs: AngularFirestore,
     private ds: DataService, private fb: FormBuilder) {
@@ -39,6 +42,7 @@ export class AddStudentComponent implements OnInit {
   onFileChange($event) {
     // console.log($event.target.files[0])
     this.loading = true;
+    this.actionBtnName = ' loading ...';
     const task = this.ds.uploadFileToStorage($event.target.files[0]);
     task.snapshotChanges().subscribe((val) => {
 
@@ -46,6 +50,7 @@ export class AddStudentComponent implements OnInit {
         console.log(downloadUrl);
         this.addStudentForm.patchValue({ profilePicUrl: downloadUrl || '' });
         this.loading = false;
+        this.actionBtnName = this.ADD_STDNT_BTN_NAME;
       });
 
     });
@@ -61,10 +66,10 @@ export class AddStudentComponent implements OnInit {
     const student: Student = this.addStudentForm.value;
     console.log(student);
     this.loading = true;
+    this.actionBtnName = 'loading ...';
     this.ds.addStudent(student).then((data) => {
       this.loading = false;
-      this.clearForm();
-      this.sb.open('Student has been added', 'okay', {
+      this.sb.open('Student has been added/updated', 'okay', {
         duration: 2000,
       });
 
@@ -75,13 +80,7 @@ export class AddStudentComponent implements OnInit {
 
 
   ngOnInit() {
-    this.addStudentForm = this.fb.group({
-      studentId: '',
-      studentName: '',
-      studentGrade: 0,
-      profilePicUrl: '',
-      selectedActivities: this.fb.array(this.createFGActivity(AppSettings.noOfActivitiesPerChild)),
-    });
+    this.initForm();
     this.selectedActCtrl = this.addStudentForm.get('selectedActivities') as FormArray;
 
     this.ds.getAllActivities('name', true).subscribe(data => {
@@ -97,7 +96,7 @@ export class AddStudentComponent implements OnInit {
         const studentId = data[1].path;
         this.ds.getStudent(studentId).subscribe(val => {
           this.addStudentForm.setValue(val);
-          this.actionBtnName = 'Update Student';
+          this.actionBtnName = this.UPDT_STDNT_BTN_NAME;
         });
 
       }
@@ -105,16 +104,20 @@ export class AddStudentComponent implements OnInit {
 
   }
 
-
-  clearForm() {
-    // this.profilePicInput.nativeElement.value = '';
+  initForm() {
     this.addStudentForm = this.fb.group({
       studentId: '',
-      studentName: '',
+      studentName: ['', Validators.required],
       studentGrade: 0,
       profilePicUrl: '',
       selectedActivities: this.fb.array(this.createFGActivity(AppSettings.noOfActivitiesPerChild)),
     });
+  }
+
+
+  clearForm() {
+    // this.profilePicInput.nativeElement.value = '';
+    this.initForm();
 
   }
 
