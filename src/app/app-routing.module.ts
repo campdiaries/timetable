@@ -6,6 +6,7 @@ import { SchoolComponent } from './school/school/school.component';
 import { ActivityComponent } from './activity/activity/activity.component';
 import { AuthGuard } from './core/auth-guard/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { AddStudentComponent } from './student/add-student/add-student.component';
 
 
 // TODO: use gaurds here
@@ -42,6 +43,14 @@ const routes: Routes = [
   {
     path: 'student/edit/:id',
     component: StudentComponent
+  },
+  {
+    path: 'add-update-student',
+    component: AddStudentComponent,
+  },
+  {
+    path: 'add-update-student/:id',
+    component: AddStudentComponent,
   }
 ];
 

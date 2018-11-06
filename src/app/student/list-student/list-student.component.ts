@@ -3,7 +3,6 @@ import { DataService } from 'src/app/core/data-service/data-service.service';
 import { Student } from 'src/app/models/Student';
 
 
-
 @Component({
   selector: 'app-list-student',
   templateUrl: './list-student.component.html',
@@ -11,7 +10,7 @@ import { Student } from 'src/app/models/Student';
 })
 export class ListStudentComponent implements OnInit {
 
-  students: Student[];
+  students: Student[] = [];
   constructor(private ds: DataService) {
   }
 

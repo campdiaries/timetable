@@ -48,11 +48,12 @@ export class AddStudentComponent implements OnInit {
     const task = this.ds.uploadFileToStorage($event.target.files[0]);
     task.snapshotChanges().subscribe((val) => {
 
-      const downloadUrl = (val.ref.getDownloadURL()) + '?alt=media&token=124293d5-e6a4-4121-a857-26223393d34e';
-      console.log((val.ref.getDownloadURL()) + '?alt=media&token=124293d5-e6a4-4121-a857-26223393d34e');
+      val.ref.getDownloadURL().then((downloadUrl) => {
+        console.log(downloadUrl);
+        this.addStudentForm.patchValue({ profilePicUrl: downloadUrl || '' });
+        this.loading = false;
+      });
 
-      // this.addStudentForm.patchValue({ profilePicUrl: downloadUrl || '' });
-      this.loading = false;
     });
 
   }
@@ -97,9 +98,9 @@ export class AddStudentComponent implements OnInit {
 
     // -------------------------EDIT SECTION----------------------------------------
     this.route.url.subscribe(data => {
-      const actionUrl = data[1].path;
-      if (actionUrl.localeCompare('edit') === 0) {
-        const studentId = this.route.snapshot.params.id;
+      // const actionUrl = (data[1]) ? data[1].path : '';
+      if (data[1]) {
+        const studentId = data[1].path;
         this.ds.getStudent(studentId).subscribe(val => {
           this.addStudentForm.setValue(val);
           this.actionBtnName = 'Update Student';
@@ -112,7 +113,7 @@ export class AddStudentComponent implements OnInit {
 
 
   clearForm() {
-    this.profilePicInput.nativeElement.value = '';
+    // this.profilePicInput.nativeElement.value = '';
     this.addStudentForm = this.fb.group({
       studentId: '',
       studentName: '',
