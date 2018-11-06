@@ -39,3 +39,9 @@ testem.log
 Thumbs.db
 package-lock.json
 src/environments/firebase-credentials.ts
+.firebase/hosting.ZGlzdC90aW1ldGFibGU.cache
+.firebase/hosting.ZGlzdA.cache
+timetable.iml
+storage.rules
+.firebaserc
+database.rules.json

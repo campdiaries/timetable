@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/User';
 import * as firebase from 'firebase';
 import { Student } from 'src/app/models/Student';
 import { Activity } from 'src/app/models/Activity';
