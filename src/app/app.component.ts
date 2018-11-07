@@ -16,6 +16,7 @@ export class AppComponent implements OnInit{
   maxStudentPerSession = 25;
   students;
   activities;
+  //TODO add sessions object to firebase
   sessions = [];
 
   ngOnInit() {
@@ -57,16 +58,18 @@ export class AppComponent implements OnInit{
   }
 
   populateSessions() {
-    let i = 0;
-    this.activities.forEach( (activity) => {
+    let i = -1;
+    this.activities.forEach( (activity,index) => {
       if(activity.count > 0) {
-        let sessionIndex = i % this.maxSessions;
+        let sessionIndex = ++i % this.maxSessions;
         this.sessions[sessionIndex].push({name:activity.name,assignedStudents:0});
-        i++;
-        //TODO handle multiple sessions instead of just 2
-        if(activity.count > this.maxStudentPerSession){
-          let sessionIndex = i % this.maxSessions;
-          this.sessions[sessionIndex].push({name:activity.name,assignedStudents:0});
+        for( var x = 1; x <= this.maxSessions; x++) {
+          if(activity.count > this.maxStudentPerSession * x){
+            let sessionIndex = ++i % this.maxSessions;
+            this.sessions[sessionIndex].push({name:activity.name,assignedStudents:0});
+          } else {
+            break;
+          }
         }
       }
     });
@@ -74,7 +77,6 @@ export class AppComponent implements OnInit{
   }
 
   assignStudents() {
-    // this.sessions[1].push("BEATBOX");
     this.students.forEach( (student) => {
       student.selectedActivities.forEach( (activity) => {
         let i = 0;
@@ -83,7 +85,7 @@ export class AppComponent implements OnInit{
           let existingSession = _.find(student.selectedActivities,{session: (sessionIndex+1)});
           let activityIndex = _.findIndex(this.sessions[sessionIndex],{name:activity.name});
           if( activityIndex != -1 && (existingSession == undefined || (sessionIndex+1) != existingSession.session)
-              && this.sessions[sessionIndex][activityIndex].assignedStudents <= this.maxStudentPerSession ) {
+              && this.sessions[sessionIndex][activityIndex].assignedStudents < this.maxStudentPerSession ) {
             activity.session = (i+1);
             this.sessions[sessionIndex][activityIndex].assignedStudents++;
             break;
