@@ -254,4 +254,9 @@ export class DataService {
     return this.storage.upload(path, file, { customMetadata });
   }
 
+
+  // getUser(): User {
+  //   return this.user;
+  // }
+
 }

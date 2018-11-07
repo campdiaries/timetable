@@ -1,13 +1,18 @@
 <mat-nav-list class="tt-card-content-center">
   <h3 mat-subheader>Students</h3>
-  <a routerLink="/add-update-student/"> <mat-list-item>
-    Add Student
-  </mat-list-item>
-</a>
-<div *ngFor="let student of students">
-  <mat-list-item routerLink="/add-update-student/{{student.studentId}}">
-    
-    <a><h4 mat-line>{{student.studentName}}</h4></a>
-  </mat-list-item>
-</div>
+  <a routerLink="/add-update-student/">
+    <mat-list-item>
+      Add Student
+    </mat-list-item>
+  </a>
+  <div *ngIf="isAdmin==true">
+    <div *ngFor="let student of students">
+      <mat-list-item routerLink="/add-update-student/{{student.studentId}}">
+
+        <a>
+          <h4 mat-line>{{student.studentName}}</h4>
+        </a>
+      </mat-list-item>
+    </div>
+  </div>
 </mat-nav-list>
