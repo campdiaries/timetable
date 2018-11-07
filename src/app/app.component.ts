@@ -61,16 +61,15 @@ export class AppComponent implements OnInit{
     this.activities.forEach( (activity) => {
       if(activity.count > 0) {
         let sessionIndex = i % this.maxSessions;
-        this.sessions[sessionIndex].push(activity.name);
+        this.sessions[sessionIndex].push({name:activity.name,assignedStudents:0});
         i++;
         //TODO handle multiple sessions instead of just 2
         if(activity.count > this.maxStudentPerSession){
           let sessionIndex = i % this.maxSessions;
-          this.sessions[sessionIndex].push(activity.name);
+          this.sessions[sessionIndex].push({name:activity.name,assignedStudents:0});
         }
       }
     });
-    console.log(this.sessions);
     this.assignStudents();
   }
 
@@ -82,8 +81,11 @@ export class AppComponent implements OnInit{
         while(i < this.maxSessions * this.maxSessions) {
           let sessionIndex = i % this.maxSessions;
           let existingSession = _.find(student.selectedActivities,{session: (sessionIndex+1)});
-          if(this.sessions[sessionIndex].includes(activity.name) && (existingSession == undefined || (sessionIndex+1) != existingSession.session) ) {
+          let activityIndex = _.findIndex(this.sessions[sessionIndex],{name:activity.name});
+          if( activityIndex != -1 && (existingSession == undefined || (sessionIndex+1) != existingSession.session)
+              && this.sessions[sessionIndex][activityIndex].assignedStudents <= this.maxStudentPerSession ) {
             activity.session = (i+1);
+            this.sessions[sessionIndex][activityIndex].assignedStudents++;
             break;
           }
           i++;
@@ -91,6 +93,7 @@ export class AppComponent implements OnInit{
       });
     });
     console.log(this.students);
+    console.log(this.sessions);
   }
 
   title = 'app';
