@@ -4,4 +4,5 @@ export interface Activity {
     instructors: string[];
     name: string;
     noOfSessions: number;
+    count: number;
 }

@@ -7,16 +7,17 @@ import * as _ from 'lodash';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
   constructor(private ds: DataService) {
   }
+  title = 'app';
 
   maxSessions = 3;
   maxStudentPerSession = 25;
   students;
   activities;
-  //TODO add sessions object to firebase
+  // TODO add sessions object to firebase
   sessions = [];
 
   ngOnInit() {
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit{
   }
 
   timetableCalculation() {
-    for(var i=0;i<this.maxSessions;i++) {
+    for (let i = 0; i < this.maxSessions; i++) {
       this.sessions[i] = [];
     }
     this.getActivities();
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit{
   }
 
   getActivities() {
-    this.ds.getAllActivities('name',true).subscribe(activities => {
+    this.ds.getAllActivities('name', true).subscribe(activities => {
       activities.forEach((activity) => {
         activity.count = 0;
       });
@@ -48,25 +49,26 @@ export class AppComponent implements OnInit{
   }
 
   calculateCounts() {
-    this.students.forEach( (student) => {
-      student.selectedActivities.forEach( (activity) => {
-          let activityIndex = _.findIndex(this.activities, { name: activity.name});
-          this.activities[activityIndex].count++;
+    this.students.forEach((student) => {
+      student.selectedActivities.forEach((activity) => {
+        const activityIndex = _.findIndex(this.activities, { name: activity.name });
+        this.activities[activityIndex].count++;
       });
     });
+    this.activities[0].count = 56;
     this.populateSessions();
   }
 
   populateSessions() {
     let i = -1;
-    this.activities.forEach( (activity,index) => {
-      if(activity.count > 0) {
-        let sessionIndex = ++i % this.maxSessions;
-        this.sessions[sessionIndex].push({name:activity.name,assignedStudents:0});
-        for( var x = 1; x <= this.maxSessions; x++) {
-          if(activity.count > this.maxStudentPerSession * x){
-            let sessionIndex = ++i % this.maxSessions;
-            this.sessions[sessionIndex].push({name:activity.name,assignedStudents:0});
+    this.activities.forEach((activity, index) => {
+      if (activity.count > 0) {
+        const sessionIndex = ++i % this.maxSessions;
+        this.sessions[sessionIndex].push({ name: activity.name, assignedStudents: 0 });
+        for (let x = 1; x <= this.maxSessions; x++) {
+          if (activity.count > this.maxStudentPerSession * x) {
+            const sessionIndex = ++i % this.maxSessions;
+            this.sessions[sessionIndex].push({ name: activity.name, assignedStudents: 0 });
           } else {
             break;
           }
@@ -77,16 +79,16 @@ export class AppComponent implements OnInit{
   }
 
   assignStudents() {
-    this.students.forEach( (student) => {
-      student.selectedActivities.forEach( (activity) => {
+    this.students.forEach((student) => {
+      student.selectedActivities.forEach((activity) => {
         let i = 0;
-        while(i < this.maxSessions * this.maxSessions) {
-          let sessionIndex = i % this.maxSessions;
-          let existingSession = _.find(student.selectedActivities,{session: (sessionIndex+1)});
-          let activityIndex = _.findIndex(this.sessions[sessionIndex],{name:activity.name});
-          if( activityIndex != -1 && (existingSession == undefined || (sessionIndex+1) != existingSession.session)
-              && this.sessions[sessionIndex][activityIndex].assignedStudents < this.maxStudentPerSession ) {
-            activity.session = (i+1);
+        while (i < this.maxSessions * this.maxSessions) {
+          const sessionIndex = i % this.maxSessions;
+          const existingSession = _.find(student.selectedActivities, { session: (sessionIndex + 1) });
+          const activityIndex = _.findIndex(this.sessions[sessionIndex], { name: activity.name });
+          if (activityIndex !== -1 && (existingSession === undefined || (sessionIndex + 1) !== existingSession.session)
+            && this.sessions[sessionIndex][activityIndex].assignedStudents < this.maxStudentPerSession) {
+            activity.session = (i + 1);
             this.sessions[sessionIndex][activityIndex].assignedStudents++;
             break;
           }
@@ -98,6 +100,6 @@ export class AppComponent implements OnInit{
     console.log(this.sessions);
   }
 
-  title = 'app';
+
 
 }

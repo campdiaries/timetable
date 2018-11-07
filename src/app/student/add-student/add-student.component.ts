@@ -26,8 +26,9 @@ export class AddStudentComponent implements OnInit {
   selectedActCtrl: any;
   noOfActi: number;
 
-  readonly ADD_STDNT_BTN_NAME = 'Add Student';
-  readonly UPDT_STDNT_BTN_NAME = 'Update Student';
+  readonly ADD_STDNT_BTN_TXT = 'Add Student';
+  readonly UPDT_STDNT_BTN_TXT = 'Update Student';
+  readonly LOADIN_BTN_TXT = 'loading ...';
 
 
   constructor(private router: Router, private route: ActivatedRoute, private sb: MatSnackBar, private afs: AngularFirestore,
@@ -35,14 +36,14 @@ export class AddStudentComponent implements OnInit {
   }
 
 
-
+  // TODO: all 3 activitites must be different
 
 
 
   onFileChange($event) {
     // console.log($event.target.files[0])
     this.loading = true;
-    this.actionBtnName = ' loading ...';
+    this.actionBtnName = this.LOADIN_BTN_TXT;
     const task = this.ds.uploadFileToStorage($event.target.files[0]);
     task.snapshotChanges().subscribe((val) => {
 
@@ -50,10 +51,33 @@ export class AddStudentComponent implements OnInit {
         console.log(downloadUrl);
         this.addStudentForm.patchValue({ profilePicUrl: downloadUrl || '' });
         this.loading = false;
-        this.actionBtnName = this.ADD_STDNT_BTN_NAME;
+        this.actionBtnName = this.ADD_STDNT_BTN_TXT;
       });
 
     });
+
+  }
+
+
+  validation(): any {
+
+    console.log(this.addStudentForm.get('selectedActivities').value);
+    if (!this.checkDifferent(this.addStudentForm.get('selectedActivities').value)) {
+      return { status: false, message: 'please make sure all the activities are different' };
+    }
+
+    return { status: true, message: '' };
+  }
+
+  checkDifferent(activities) {
+    const actArr = [];
+
+    activities.forEach(element => {
+      actArr.push(element['name']);
+    });
+
+    const actSet = new Set(actArr);
+    return (actArr.length === actSet.size);
 
   }
 
@@ -63,19 +87,30 @@ export class AddStudentComponent implements OnInit {
       this.addStudentForm.patchValue({ studentId: studentId });
     }
 
-    const student: Student = this.addStudentForm.value;
-    console.log(student);
-    this.loading = true;
-    this.actionBtnName = 'loading ...';
-    this.ds.addStudent(student).then((data) => {
-      this.loading = false;
-      this.sb.open('Student has been added/updated', 'okay', {
-        duration: 2000,
+    const valiRes = this.validation();
+
+    if (valiRes.status) {
+      const student: Student = this.addStudentForm.value;
+      console.log(student);
+      this.loading = true;
+      this.actionBtnName = this.LOADIN_BTN_TXT;
+      this.ds.addStudent(student).then((data) => {
+        this.clearForm();
+        this.loading = false;
+        this.actionBtnName = this.ADD_STDNT_BTN_TXT;
+        this.toast('Student has been added/updated', 'okay');
       });
+    } else {
+      this.toast(valiRes.message, 'okay');
 
+    }
+  }
+
+
+  toast(msg: string, btnTxt: string) {
+    this.sb.open(msg, btnTxt, {
+      duration: 2000,
     });
-
-
   }
 
 
@@ -96,7 +131,7 @@ export class AddStudentComponent implements OnInit {
         const studentId = data[1].path;
         this.ds.getStudent(studentId).subscribe(val => {
           this.addStudentForm.setValue(val);
-          this.actionBtnName = this.UPDT_STDNT_BTN_NAME;
+          this.actionBtnName = this.UPDT_STDNT_BTN_TXT;
         });
 
       }
