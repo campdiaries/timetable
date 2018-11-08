@@ -55,7 +55,6 @@ export class AppComponent implements OnInit {
         this.activities[activityIndex].count++;
       });
     });
-    this.activities[0].count = 56;
     this.populateSessions();
   }
 
