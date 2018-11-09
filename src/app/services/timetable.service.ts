@@ -126,13 +126,13 @@ export class TimetableService {
   }
 
   getStudentById(id) {
-    console.log("Search id is :" + id);
+    console.log('Search id is :' + id);
     console.log(this._students);
     if (this._students) {
-      console.log("inside if")
+      console.log('inside if');
       return this.findStudentById(id);
     } else {
-      console.log("inside else")
+      console.log('inside else');
       this.timetableCalculation();
       if (this._students) {
         return this.findStudentById(id);
@@ -143,7 +143,7 @@ export class TimetableService {
   findStudentById(id) {
     let student;
     this._students.forEach((data) => {
-      if (data.studentId == id) {
+      if (data.studentId === id) {
         console.log(data);
         student = data;
         return;
