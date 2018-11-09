@@ -1,3 +1,5 @@
+<!-- add bootstrap col-xs -->
+<div>
 <table>
   <td *ngFor="let session of sessions;let i = index">
     <tr>Session{{i+1}}</tr>
@@ -6,3 +8,23 @@
       </tr>
     </td>
 </table>
+</div>
+<div>
+  <table>
+    <tr *ngFor="let student of students">
+      <th>{{student.studentName}}</th>
+      <ng-container *ngFor="let activity of student.selectedActivities">
+        <ng-container *ngIf="activity.session;else unassignedSession">
+          <td>
+            Session:{{activity.session}} - {{activity.name}}
+          </td>
+        </ng-container>
+        <ng-template #unassignedSession>
+          <td bgcolor="#FF0000">
+            {{activity.name}}
+          </td>
+        </ng-template>
+      </ng-container>
+    </tr>
+  </table>
+</div>
