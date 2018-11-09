@@ -1,3 +1,8 @@
-<p>
-  timetable works!
-</p>
+<table>
+  <td *ngFor="let session of sessions;let i = index">
+    <tr>Session{{i+1}}</tr>
+      <tr *ngFor="let sess of session">
+        {{sess.name}}
+      </tr>
+    </td>
+</table>

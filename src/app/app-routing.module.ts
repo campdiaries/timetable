@@ -7,6 +7,7 @@ import { ActivityComponent } from './activity/activity/activity.component';
 import { AuthGuard } from './core/auth-guard/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { AddStudentComponent } from './student/add-student/add-student.component';
+import { TimetableComponent } from './timetable/timetable.component';
 
 
 // TODO: use gaurds here
@@ -51,7 +52,11 @@ const routes: Routes = [
   {
     path: 'activity/:id',
     component: ActivityComponent
-
+  },
+  {
+    path: 'timetable',
+    component: TimetableComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
