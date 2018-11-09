@@ -2,13 +2,14 @@
 <div>
 <table>
   <td *ngFor="let session of sessions;let i = index">
-    <tr>Session{{i+1}}</tr>
+    <tr><span style="font-weight:bold">Session{{i+1}}</span><tr>
       <tr *ngFor="let sess of session">
-        {{sess.name}}
+        {{sess.name}} ( {{sess.assignedStudents}} )
       </tr>
     </td>
 </table>
 </div>
+<br>
 <div>
   <table>
     <tr *ngFor="let student of students">
