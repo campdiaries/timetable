@@ -14,7 +14,7 @@
         <input type="number" matInput formControlName="studentGrade" placeholder="Student grade">
       </mat-form-field>
       <br>
-      <div formArrayName="selectedActivities" *ngFor="let selectedActivity of addStudentForm.get('selectedActivities').controls; let i=index;">
+      <div formArrayName="selectedActivities" *ngFor="let selectedActivity of addStudentForm.get('selectedActivities')['controls']; let i=index;">
         <div [formGroupName]="i">
 
           <mat-form-field>
