@@ -37,6 +37,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
+import { TimetableComponent } from './timetable/timetable.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     SchoolComponent,
     ActivityComponent,
     ListStudentComponent,
-    LoginComponent
+    LoginComponent,
+    TimetableComponent
   ],
   imports: [
     BrowserModule,
