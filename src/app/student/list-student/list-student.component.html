@@ -1,18 +1,34 @@
-<mat-nav-list class="tt-card-content-center">
-  <h3 mat-subheader>Students</h3>
-  <a routerLink="/add-update-student/">
-    <mat-list-item>
-      Add Student
-    </mat-list-item>
-  </a>
-  <div *ngIf="isAdmin==true">
-    <div *ngFor="let student of students">
-      <mat-list-item routerLink="/add-update-student/{{student.studentId}}">
+<mat-nav-list class="tt-card-content-center" style="margin: 2%">
+    <h1 class="ui header">Students</h1>
 
+  <button class="ui primary basic button" routerLink="/add-update-student/" >Add Student</button>
+  
+  <div *ngIf="isAdmin" style="margin-top: 2%">
+    <div class="ui four doubling cards">
+      <div class="card" *ngFor="let student of students">
+        <div class="content">
+          <div class="header">{{student.studentName}}</div>
+          <div class="meta">grade - {{student.studentGrade}}</div>
+          <div class="description">
+            <div class="ui celled horizontal list">
+              <div class="item" *ngFor="let activity of student.selectedActivities">{{activity.name}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="ui bottom attached button" routerLink="/add-update-student/{{student.studentId}}">
+          <i class="edit icon"></i>
+          Edit
+        </div>
+      </div>
+    </div>
+    <!-- <div *ngFor="let student of students">
+      <mat-list-item routerLink="/add-update-student/{{student.studentId}}">
         <a>
           <h4 mat-line>{{student.studentName}}</h4>
         </a>
       </mat-list-item>
-    </div>
+    </div> -->
   </div>
+
+
 </mat-nav-list>
