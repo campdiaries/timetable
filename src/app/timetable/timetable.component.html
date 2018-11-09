@@ -1,31 +1,46 @@
 <!-- add bootstrap col-xs -->
-<div>
-<table>
-  <td *ngFor="let session of sessions;let i = index">
-    <tr><span style="font-weight:bold">Session{{i+1}}</span><tr>
-      <tr *ngFor="let sess of session">
-        {{sess.name}} ( {{sess.assignedStudents}} )
-      </tr>
+<div style="margin:2%;">
+  <table class="ui blue celled table">
+    <td *ngFor="let session of sessions;let i = index">
+      <thead>
+        <tr><span style="font-weight:bold">Session{{i+1}}</span>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sess of session">
+          {{sess.name}} ( {{sess.assignedStudents}} )
+        </tr>
+      </tbody>
     </td>
-</table>
+  </table>
 </div>
 <br>
-<div>
-  <table>
-    <tr *ngFor="let student of students">
-      <th>{{student.studentName}}</th>
-      <ng-container *ngFor="let activity of student.selectedActivities">
-        <ng-container *ngIf="activity.session;else unassignedSession">
-          <td>
-            Session:{{activity.session}} - {{activity.name}}
-          </td>
+<div style="margin:2%">
+  <table class="ui orange celled table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Session</th>
+        <th>Session</th>
+        <th>Session</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let student of students">
+        <th>{{ student.studentName }}</th>
+        <ng-container *ngFor="let activity of student.selectedActivities">
+          <ng-container *ngIf="activity.session;else unassignedSession">
+            <td>
+              Session:{{activity.session}} - {{activity.name}}
+            </td>
+          </ng-container>
+          <ng-template #unassignedSession>
+            <td class="negative">
+              {{activity.name}}
+            </td>
+          </ng-template>
         </ng-container>
-        <ng-template #unassignedSession>
-          <td bgcolor="#FF0000">
-            {{activity.name}}
-          </td>
-        </ng-template>
-      </ng-container>
-    </tr>
+      </tr>
+    </tbody>
   </table>
+
 </div>
