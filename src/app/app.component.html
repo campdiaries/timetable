@@ -6,9 +6,17 @@
         <mat-menu #menu="matMenu">
             <button routerLink="/student" mat-menu-item>Student</button>
             <button routerLink="/activity" mat-menu-item>Actvitiy</button>
-            <button routerLink="/volunteer" mat-menu-item>Volunteer</button>
-            <button routerLink="/school" mat-menu-item>School</button>
+            <!-- <button routerLink="/volunteer" mat-menu-item>Volunteer</button>
+            <button routerLink="/school" mat-menu-item>School</button> -->
         </mat-menu>
     </mat-toolbar-row>
 </mat-toolbar>
+<table>
+  <td *ngFor="let session of sessions;let i = index">
+    <tr>Session{{i+1}}</tr>
+      <tr *ngFor="let sess of session">
+        {{sess.name}}
+      </tr>
+    </td>
+</table>
 <router-outlet></router-outlet>

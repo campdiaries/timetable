@@ -1,3 +1,8 @@
-<p>
-  list-activity works!
-</p>
+<mat-nav-list class="tt-card-content-center">
+  <h3 mat-subheader>Activity</h3>
+  <div *ngFor="let activity of activities">
+    <mat-list-item>
+      <h4 mat-line (click)="onActivityLinkClicked(activity.activityId)">{{activity.name}}</h4>
+    </mat-list-item>
+  </div>
+</mat-nav-list>

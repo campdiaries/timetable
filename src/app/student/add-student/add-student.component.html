@@ -1,27 +1,51 @@
-    <mat-card>
-      <mat-card-content>
+<mat-card class="tt-card-content-center">
+  <mat-card-content>
+    <form [formGroup]="addStudentForm">
 
-
-        <form [formGroup]="addStudentForm">
+      <mat-form-field>
+        <input matInput formControlName="studentName" placeholder="Student Name" required>
+        <mat-hint>Please enter the full name</mat-hint>
+        <mat-error *ngIf="addStudentForm.controls['studentName'].errors">
+            Please enter the student name
+          </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input type="number" matInput formControlName="studentGrade" placeholder="Student grade">
+      </mat-form-field>
+      <br>
+      <div formArrayName="selectedActivities" *ngFor="let selectedActivity of addStudentForm.get('selectedActivities').controls; let i=index;">
+        <div [formGroupName]="i">
 
           <mat-form-field>
-            <input matInput formControlName="name" placeholder="Student Name">
-          </mat-form-field><br>
-          <mat-form-field>
-            <input type="number" matInput formControlName="grade" placeholder="Student grade">
-          </mat-form-field><br>
-          <input type="file" (change)="onFileChange($event)">
-          <br>
-          <br>  
-          <mat-card-actions>
-            <button mat-raised-button>clear</button>
-            <button mat-raised-button color="primary" (click)="addStudent()">Submit</button>
-          </mat-card-actions>
+            <mat-select placeholder="Activty {{i+1}}" formControlName="name">
+              <mat-option *ngFor="let activity of activities" [value]="activity.name">
+                {{activity.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+      <br>
+      <input type="file" (change)="onFileChange($event)" #profilePicInput>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div>
+        <a [href]="addStudentForm.value.profilePicUrl" target="_blank"><img mat-card-image [src]="addStudentForm.value.profilePicUrl"
+            style="width:200px;"></a>
+      </div>
+      <br>
+      <mat-card-actions>
+        <button mat-raised-button (click)="clearForm()">clear</button>
+        <button mat-raised-button color="primary" (click)="addStudent()" [disabled]="loading || addStudentForm.invalid">{{actionBtnName}}</button>
+      </mat-card-actions>
 
 
-        </form>
-
-
-
-      </mat-card-content>
-    </mat-card>
+    </form>
+    {{addStudentForm.value | json}}
+    {{ addStudentForm.invalid | json }}
+  </mat-card-content>
+</mat-card>

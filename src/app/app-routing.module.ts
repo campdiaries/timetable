@@ -6,6 +6,7 @@ import { SchoolComponent } from './school/school/school.component';
 import { ActivityComponent } from './activity/activity/activity.component';
 import { AuthGuard } from './core/auth-guard/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { AddStudentComponent } from './student/add-student/add-student.component';
 
 
 // TODO: use gaurds here
@@ -24,9 +25,34 @@ const routes: Routes = [
     component: StudentComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'volunteer', component: VolunteerComponent },
-  { path: 'school', component: SchoolComponent },
-  { path: 'activity', component: ActivityComponent },
+  {
+    path: 'volunteer',
+    component: VolunteerComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'school',
+    component: SchoolComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'activity',
+    component: ActivityComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-update-student',
+    component: AddStudentComponent,
+  },
+  {
+    path: 'add-update-student/:id',
+    component: AddStudentComponent,
+  },
+  {
+    path: 'activity/:id',
+    component: ActivityComponent
+
+  }
 ];
 
 @NgModule({

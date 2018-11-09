@@ -12,6 +12,7 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService {
 
   user: Observable<User>;
+  userObj: User;
   constructor(private afAuth: AngularFireAuth, private afStore: AngularFirestore, private router: Router, private zone: NgZone) {
     this.afAuth.auth.getRedirectResult().then(cred => {
       if (cred.user) {
@@ -42,6 +43,8 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email,
+      isAdmin: false,
+      isVolunteer: true
     };
     return userRef.set(data, { merge: true });
   }
@@ -62,6 +65,7 @@ export class AuthService {
 
   isAuthorized(user: User): boolean {
     console.log(user);
+    this.userObj = user;
     return user.isVolunteer || user.isAdmin;
   }
 
@@ -71,6 +75,10 @@ export class AuthService {
 
   isVolunteer(user: User): boolean {
     return user.isVolunteer;
+  }
+
+  getUserObj(): User {
+    return this.userObj;
   }
 
 }

@@ -1,6 +1,7 @@
 export interface Student {
     studentId: string;
-    name: string;
-    grade: number;
-    image: string;
+    studentName: string;
+    studentGrade: number;
+    profilePicUrl: string;
+    selectedActivities: any[];
 }
