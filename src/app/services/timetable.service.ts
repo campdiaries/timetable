@@ -133,13 +133,9 @@ export class TimetableService {
   }
 
   getStudentById(id) {
-    console.log("Search id is :" + id);
-    console.log(this._students);
     if(this._students) {
-      console.log("inside if")
       return this.findStudentById(id);
     } else {
-      console.log("inside else")
       this.timetableCalculation();
       if(this._students) {
         return this.findStudentById(id);
