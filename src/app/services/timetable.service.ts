@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 export class TimetableService {
 
   maxSessions = 3;
+  sessionSizeArr = [15,40];
   maxStudentPerSession = 25;
   _students;
   activities;
@@ -57,8 +58,8 @@ export class TimetableService {
       if (activity.count > 0) {
         const sessionIndex = ++i % this.maxSessions;
         this._sessions[sessionIndex].push({ name: activity.name, assignedStudents: 0 });
-        for (let x = 1; x <= this.maxSessions; x++) {
-          if (activity.count > this.maxStudentPerSession * x) {
+        for (let x = 1; x < this.maxSessions; x++) {
+          if (activity.count > this.sessionSizeArr[x-1]) {
             const sessionIndex = ++i % this.maxSessions;
             this._sessions[sessionIndex].push({ name: activity.name, assignedStudents: 0 });
           } else {
@@ -73,6 +74,13 @@ export class TimetableService {
   assignStudents() {
     this._students.forEach((student) => {
       student.selectedActivities.forEach((activity) => {
+        let count = _.countBy(_.flatten(this._sessions), function (val) { return val.name == activity.name; }).true;
+        activity.count = count;
+      });
+      student.selectedActivities.sort(function(a, b){
+        return a.count-b.count;
+      });
+      student.selectedActivities.forEach((activity) => {
         let i = 0;
         while (i < this.maxSessions * this.maxSessions) {
           const sessionIndex = i % this.maxSessions;
@@ -86,14 +94,14 @@ export class TimetableService {
           }
           i++;
         }
-      });
+       });
     });
     this.students = this._students;
     this.sessions = this._sessions;
     console.log(this._students);
     console.log(this._sessions);
   }
-
+  
   get sessions() {
     if (this._sessions.length > 0) {
       return this._sessions;
