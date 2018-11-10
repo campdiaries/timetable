@@ -73,6 +73,13 @@ export class TimetableService {
   assignStudents() {
     this._students.forEach((student) => {
       student.selectedActivities.forEach((activity) => {
+        let count = _.countBy(_.flatten(this._sessions), function (val) { return val.name == activity.name; }).true;
+        activity.count = count;
+      });
+      student.selectedActivities.sort(function(a, b){
+        return a.count-b.count;
+      });
+      student.selectedActivities.forEach((activity) => {
         let i = 0;
         while (i < this.maxSessions * this.maxSessions) {
           const sessionIndex = i % this.maxSessions;
@@ -86,7 +93,7 @@ export class TimetableService {
           }
           i++;
         }
-      });
+       });
     });
     this.students = this._students;
     this.sessions = this._sessions;
