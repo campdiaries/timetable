@@ -76,8 +76,8 @@ export class TimetableService {
         let count = _.countBy(_.flatten(this._sessions), function (val) { return val.name == activity.name; }).true;
         activity.count = count;
       });
-      student.selectedActivities.sort(function(a, b){
-        return a.count-b.count;
+      student.selectedActivities.sort(function (a, b) {
+        return a.count - b.count;
       });
       student.selectedActivities.forEach((activity) => {
         let i = 0;
@@ -93,7 +93,7 @@ export class TimetableService {
           }
           i++;
         }
-       });
+      });
     });
     this.students = this._students;
     this.sessions = this._sessions;
@@ -102,19 +102,19 @@ export class TimetableService {
   }
 
   get sessions() {
-    if(this._sessions.length > 0){
+    if (this._sessions.length > 0) {
       return this._sessions;
     } else {
-        this.timetableCalculation();
-        return this._sessions;
+      this.timetableCalculation();
+      return this._sessions;
     }
   }
 
   get students() {
-    if(this._students) {
+    if (this._students) {
       return this._students;
     } else {
-      if(this._sessions) {
+      if (this._sessions) {
         this.assignStudents();
         return this._students;
       } else {
@@ -133,11 +133,11 @@ export class TimetableService {
   }
 
   getStudentById(id) {
-    if(this._students) {
+    if (this._students) {
       return this.findStudentById(id);
     } else {
       this.timetableCalculation();
-      if(this._students) {
+      if (this._students) {
         return this.findStudentById(id);
       }
     }
@@ -146,7 +146,7 @@ export class TimetableService {
   findStudentById(id) {
     let student;
     this._students.forEach((data) => {
-      if(data.studentId == id){
+      if (data.studentId == id) {
         console.log(data);
         student = data;
         return;

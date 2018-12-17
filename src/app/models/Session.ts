@@ -2,6 +2,7 @@ export interface Session {
     sessionId: string;
     name: string;
     students: any[];
-    volunteers: any[];
+    volunteers?: any[];
     time: Date;
+    timetableId: string;
 }

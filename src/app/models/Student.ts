@@ -7,5 +7,13 @@ export interface Student {
     volEmailAddress: string;
     volName: string;
     school: string;
-    selectedActivities: any[];
+    selectedActivities: SelectedActivity[];
+    schooldId: string;
+    priorities: any[];
+}
+
+export interface SelectedActivity {
+    activityname: string;
+    activtyPriority: number;
+    vounteerScore: number;
 }

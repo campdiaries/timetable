@@ -59,24 +59,25 @@ export class DataService {
   }
 
 
-  getStudentByName(name: string) {
-    return this.firestore.collection<Student>(STUDENTS_COLLECTION, ref => ref.where('name', '==', name)).valueChanges();
+  getStudentByName(name: string, schoolId: string) {
+    return this.firestore.collection<Student>(STUDENTS_COLLECTION, ref => ref.where('schoolId', '==', schoolId)
+      .where('name', '==', name)).valueChanges();
   }
 
-  getAllStudents(sortField: string, asc: boolean, limit?: number) {
+  getAllStudents(sortField: string, asc: boolean, schoolId: string, limit?: number) {
     if (limit) {
       return this.firestore.collection<Student>(STUDENTS_COLLECTION, ref =>
-        ref.orderBy(sortField, asc ? 'asc' : 'desc').limit(limit)).valueChanges();
+        ref.where('schoolId', '==', schoolId).orderBy(sortField, asc ? 'asc' : 'desc').limit(limit)).valueChanges();
     } else {
       return this.firestore.collection<Student>(STUDENTS_COLLECTION, ref =>
-        ref.orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
+        ref.where('schoolId', '==', schoolId).orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
     }
   }
 
   // works only with matching cases
-  searchStudentsByName(name: string) {
+  searchStudentsByName(name: string, schoolId: string) {
     return this.firestore.collection<Student>(STUDENTS_COLLECTION, ref =>
-      ref.where('name', '>', name).where('name', '<', `${name}z`).orderBy('name')).valueChanges();
+      ref.where('name', '>', name).where('name', '<', `${name}z`).where('schoolId', '==', schoolId).orderBy('name')).valueChanges();
   }
 
   deleteStudent(studentId) {
