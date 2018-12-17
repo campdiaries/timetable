@@ -5,6 +5,7 @@ export interface Student {
     studentGrade: number;
     profilePicUrl: string;
     volEmailAddress: string;
+    volName: string;
     school: string;
     selectedActivities: any[];
 }
