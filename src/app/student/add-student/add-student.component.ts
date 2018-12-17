@@ -8,6 +8,7 @@ import { Student } from '../../models/Student';
 import { AppSettings } from 'src/environments/AppSettings';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Route, Router, NavigationEnd } from '@angular/router';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 @Component({
   selector: 'app-add-student',
@@ -32,7 +33,7 @@ export class AddStudentComponent implements OnInit {
 
 
   constructor(private router: Router, private route: ActivatedRoute, private sb: MatSnackBar, private afs: AngularFirestore,
-    private ds: DataService, private fb: FormBuilder) {
+    private ds: DataService, private fb: FormBuilder, private as: AuthService) {
   }
 
 
@@ -90,6 +91,12 @@ export class AddStudentComponent implements OnInit {
     const valiRes = this.validation();
 
     if (valiRes.status) {
+      const userObj = JSON.parse(localStorage.getItem('userObj'));
+      console.log('userObj ' + userObj);
+      const userName = userObj['displayName'];
+      const userEmail = userObj['email'];
+      this.addStudentForm.patchValue({ volName: userName });
+      this.addStudentForm.patchValue({ volEmailAddress: userEmail });
       const student: Student = this.addStudentForm.value;
       console.log(student);
       this.loading = true;
@@ -145,6 +152,7 @@ export class AddStudentComponent implements OnInit {
       studentName: ['', Validators.required],
       studentGrade: 0,
       volEmailAddress: '',
+      volName: '',
       selectedActivities: this.fb.array(this.createFGActivity(AppSettings.noOfActivitiesPerChild)),
     });
   }

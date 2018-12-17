@@ -18,6 +18,7 @@ export class AuthService {
       if (cred.user) {
         console.log('successfully signed-in ', cred.user);
         console.log(cred);
+        localStorage.setItem('userObj', JSON.stringify(cred.user));
         this.updateUserData(cred.user);
         this.zone.run(_ => {
           this.router.navigate(['']);
