@@ -9,7 +9,6 @@ export interface Student {
     school: string;
     selectedActivities: SelectedActivity[];
     schooldId: string;
-    priorities: any[];
 }
 
 export interface SelectedActivity {
