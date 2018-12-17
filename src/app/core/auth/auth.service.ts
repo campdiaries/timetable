@@ -17,6 +17,7 @@ export class AuthService {
     this.afAuth.auth.getRedirectResult().then(cred => {
       if (cred.user) {
         console.log('successfully signed-in ', cred.user);
+        console.log(cred);
         this.updateUserData(cred.user);
         this.zone.run(_ => {
           this.router.navigate(['']);
@@ -43,6 +44,7 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email,
+      name: user.displayName,
       isAdmin: false,
       isVolunteer: true
     };

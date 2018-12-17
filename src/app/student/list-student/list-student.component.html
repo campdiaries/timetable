@@ -5,14 +5,13 @@
       Add Student
     </mat-list-item>
   </a>
-  <div *ngIf="isAdmin==true">
+
     <div *ngFor="let student of students">
       <mat-list-item routerLink="/add-update-student/{{student.studentId}}">
 
         <a>
-          <h4 mat-line>{{student.studentName}}</h4>
+          <h4 mat-line>{{student.studentName}} - {{student.studentGrade}} Grade - </h4>
         </a>
       </mat-list-item>
     </div>
-  </div>
 </mat-nav-list>

@@ -255,6 +255,17 @@ export class DataService {
   }
 
 
+  getAllUsers(sortField: string, asc: boolean, limit?: number) {
+    if (limit) {
+      return this.firestore.collection<Volunteer>(USERS_COLLECTION,
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc').limit(limit)).valueChanges();
+    } else {
+      return this.firestore.collection<Volunteer>(USERS_COLLECTION,
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
+    }
+  }
+
+
   // getUser(): User {
   //   return this.user;
   // }

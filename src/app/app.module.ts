@@ -38,6 +38,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
 import { TimetableComponent } from './timetable/timetable.component';
+import { DevComponent } from './dev/dev.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { TimetableComponent } from './timetable/timetable.component';
     ActivityComponent,
     ListStudentComponent,
     LoginComponent,
-    TimetableComponent
+    TimetableComponent,
+    DevComponent
   ],
   imports: [
     BrowserModule,

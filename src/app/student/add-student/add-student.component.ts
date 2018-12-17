@@ -144,7 +144,7 @@ export class AddStudentComponent implements OnInit {
       studentId: '',
       studentName: ['', Validators.required],
       studentGrade: 0,
-      profilePicUrl: '',
+      volEmailAddress: '',
       selectedActivities: this.fb.array(this.createFGActivity(AppSettings.noOfActivitiesPerChild)),
     });
   }

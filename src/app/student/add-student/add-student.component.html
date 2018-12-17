@@ -28,15 +28,6 @@
         </div>
       </div>
       <br>
-      <input type="file" (change)="onFileChange($event)" #profilePicInput>
-      <br>
-      <br>
-      <br>
-      <br>
-      <div>
-        <a [href]="addStudentForm.value.profilePicUrl" target="_blank"><img mat-card-image [src]="addStudentForm.value.profilePicUrl"
-            style="width:200px;"></a>
-      </div>
       <br>
       <mat-card-actions>
         <button mat-raised-button (click)="clearForm()">clear</button>
