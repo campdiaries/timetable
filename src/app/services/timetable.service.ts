@@ -35,7 +35,7 @@ export class TimetableService {
   }
 
   getStudents() {
-    this.ds.getAllStudents('studentName', true).subscribe(students => {
+    this.ds.getAllStudents('studentName', true, '').subscribe(students => {
       this._students = students;
       this.calculateCounts();
     });

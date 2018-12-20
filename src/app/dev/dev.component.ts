@@ -14,7 +14,7 @@ export class DevComponent implements OnInit {
   constructor(private ds: DataService) { }
 
   ngOnInit() {
-    this.ds.getAllStudents('studentName', true).subscribe(data => {
+    this.ds.getAllStudents('studentName', true, 'hello').subscribe(data => {
       this.students = data;
     });
     this.ds.getAllUsers('email', true).subscribe(data => {

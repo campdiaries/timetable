@@ -18,7 +18,7 @@ export class ListStudentComponent implements OnInit {
 
 
   ngOnInit() {
-    this.ds.getAllStudents('studentName', true).subscribe(data => {
+    this.ds.getAllStudents('studentName', true, '').subscribe(data => {
       console.log(data);
       this.students = data;
     });

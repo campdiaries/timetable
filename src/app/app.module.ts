@@ -19,7 +19,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { FirebaseCredentials } from '../environments/firebase-credentials';
+import { environment } from '../environments/environment';
 import { AddActivityComponent } from './activity/add-activity/add-activity.component';
 import { ListActivityComponent } from './activity/list-activity/list-activity.component';
 import { AddSchoolComponent } from './school/add-school/add-school.component';
@@ -72,7 +72,7 @@ import { DevComponent } from './dev/dev.component';
     MatToolbarModule,
     MatMenuModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(FirebaseCredentials.firebase),
+    AngularFireModule.initializeApp(environment.FirebaseCredentials),
     AngularFireStorageModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
