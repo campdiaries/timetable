@@ -47,6 +47,8 @@ Thumbs.db
 .firebaserc
 database.rules.json
 
+
+src/environments/*
 firestore.indexes.json
 firestore.rules
 storage.rules
