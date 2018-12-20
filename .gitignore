@@ -57,4 +57,5 @@ package-lock.json
 src/environments/firebase-credentials.ts
 src/environments/environment.prod.ts
 src/environments/environment.ts
+src/environments
 
