@@ -53,3 +53,6 @@ storage.rules
 firebase.json
 package-lock.json
 src/environments/firebase-credentials.ts
+src/environments/environments.prod.ts
+src/environments/environment.ts
+
