@@ -48,14 +48,14 @@ Thumbs.db
 database.rules.json
 
 
-./src/environments/*
+/src/environments/*
 firestore.indexes.json
 firestore.rules
 storage.rules
 firebase.json
 package-lock.json
-./src/environments/firebase-credentials.ts
-./src/environments/environment.prod.ts
-./src/environments/environment.ts
-./src/environments
+/src/environments/firebase-credentials.ts
+/src/environments/environment.prod.ts
+/src/environments/environment.ts
+/src/environments
 
