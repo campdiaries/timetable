@@ -10,6 +10,7 @@ import { Session } from 'src/app/models/Session';
 import { School } from 'src/app/models/School';
 import { Volunteer } from 'src/app/models/Volunteer';
 import { Timetable } from 'src/app/models/Timetable';
+import { map } from 'rxjs/operators';
 
 const STUDENTS_COLLECTION = 'students';
 const ACTIVITIES_COLLECTION = 'activities';
@@ -175,7 +176,18 @@ export class DataService {
         ref => ref.orderBy(sortField, asc ? 'asc' : 'desc').limit(limit)).valueChanges();
     } else {
       return this.firestore.collection<School>(SCHOOL_COLLECTION,
-        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
+        ref => ref.orderBy(sortField, asc ? 'asc' : 'desc')).snapshotChanges().pipe(
+          map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              // console.log({ id, ...data });
+              return { id, ...data };
+            });
+          })
+        );
+      // return this.firestore.collection<School>(SCHOOL_COLLECTION,
+      //   ref => ref.orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
     }
   }
 

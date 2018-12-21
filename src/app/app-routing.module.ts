@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { AddStudentComponent } from './student/add-student/add-student.component';
 import { TimetableComponent } from './timetable/timetable.component';
 import { DevComponent } from './dev/dev.component';
+import { AppComponent } from './app.component';
+import { SetSchoolModalComponent } from './ui-components/set-school-modal/set-school-modal.component';
 
 
 // TODO: use gaurds here
@@ -19,8 +21,13 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'student',
+    redirectTo: 'add-update-student',
     pathMatch: 'full'
+  },
+  {
+    path: 'set-school',
+    component: SetSchoolModalComponent
+
   },
   {
     path: 'student',
@@ -45,6 +52,7 @@ const routes: Routes = [
   {
     path: 'add-update-student',
     component: AddStudentComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'add-update-student/:id',

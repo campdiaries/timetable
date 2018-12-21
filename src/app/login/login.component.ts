@@ -14,7 +14,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.googleLogin();
+    this.authService.googleLogin().then(data => {
+      console.log('after login');
+      console.log(data);
+    });
   }
 
   logout() {

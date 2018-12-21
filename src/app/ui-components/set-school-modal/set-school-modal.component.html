@@ -1,0 +1,14 @@
+<h1>Set school</h1>
+  <p>Please set the current school you are in</p>
+
+      <h4>mat-select</h4>
+      <form>
+      <mat-form-field>
+        <mat-select placeholder="Favorite food" [(ngModel)]="selectedSchool"  name="food">
+          <mat-option *ngFor="let school of schools" [(value)]="school.id" (selectionChange)="onSelected(school.name)">
+            {{school.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  <button mat-button (click)="setSchoolId()">Set school</button>

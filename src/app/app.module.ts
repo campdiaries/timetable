@@ -10,7 +10,7 @@ import { MatGridListModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddStudentComponent } from './student/add-student/add-student.component';
@@ -19,7 +19,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { environment } from '../environments/environment';
+import { FirebaseCredentials } from '../environments/firebase-credentials';
 import { AddActivityComponent } from './activity/add-activity/add-activity.component';
 import { ListActivityComponent } from './activity/list-activity/list-activity.component';
 import { AddSchoolComponent } from './school/add-school/add-school.component';
@@ -36,9 +36,12 @@ import { LoginComponent } from './login/login.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { TimetableComponent } from './timetable/timetable.component';
 import { DevComponent } from './dev/dev.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SetSchoolModalComponent } from './ui-components/set-school-modal/set-school-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -57,7 +60,8 @@ import { DevComponent } from './dev/dev.component';
     ListStudentComponent,
     LoginComponent,
     TimetableComponent,
-    DevComponent
+    DevComponent,
+    SetSchoolModalComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,7 @@ import { DevComponent } from './dev/dev.component';
     MatToolbarModule,
     MatMenuModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.FirebaseCredentials),
+    AngularFireModule.initializeApp(FirebaseCredentials.firebase),
     AngularFireStorageModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -80,7 +84,9 @@ import { DevComponent } from './dev/dev.component';
     MatSelectModule,
     MatSnackBarModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -21,7 +21,7 @@ export class AuthService {
         localStorage.setItem('userObj', JSON.stringify(cred.user));
         this.updateUserData(cred.user);
         this.zone.run(_ => {
-          this.router.navigate(['']);
+          this.router.navigate(['set-school']);
         });
       }
     }).catch(err => {
