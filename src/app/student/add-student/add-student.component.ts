@@ -9,7 +9,7 @@ import { AppSettings } from 'src/environments/AppSettings';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Route, Router, NavigationEnd } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
-
+import { SelectedActivity } from '../../models/Student';
 @Component({
   selector: 'app-add-student',
   templateUrl: './add-student.component.html',
@@ -74,7 +74,7 @@ export class AddStudentComponent implements OnInit {
     const actArr = [];
 
     activities.forEach(element => {
-      actArr.push(element['name']);
+      actArr.push(element['activityName']);
     });
 
     const actSet = new Set(actArr);
@@ -125,7 +125,8 @@ export class AddStudentComponent implements OnInit {
     this.initForm();
     this.selectedActCtrl = this.addStudentForm.get('selectedActivities') as FormArray;
 
-    this.ds.getAllActivities('name', true).subscribe(data => {
+    this.ds.getAllActivities('activityName', true).subscribe(data => {
+      console.log(data);
       this.activities = data;
     });
 
@@ -166,8 +167,9 @@ export class AddStudentComponent implements OnInit {
 
   createFGActivity(no: number): FormGroup[] {
     const fbgroups: FormGroup[] = [];
+    const selectedActivity: SelectedActivity = { activityName: '', activtyPriority: 0, vounteerScore: 0 };
     for (let i = 0; i < no; i++) {
-      fbgroups.push(this.fb.group({ name: '' }));
+      fbgroups.push(this.fb.group(selectedActivity));
     }
     return fbgroups;
   }

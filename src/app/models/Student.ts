@@ -12,7 +12,7 @@ export interface Student {
 }
 
 export interface SelectedActivity {
-    activityname: string;
+    activityName: string;
     activtyPriority: number;
     vounteerScore: number;
 }

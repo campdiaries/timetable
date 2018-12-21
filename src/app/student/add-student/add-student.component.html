@@ -18,15 +18,27 @@
         <div [formGroupName]="i">
 
           <mat-form-field>
-            <mat-select placeholder="Activty {{i+1}}" formControlName="name">
-              <mat-option *ngFor="let activity of activities" [value]="activity.name">
-                {{activity.name}}
+            <mat-select placeholder="Activty {{i+1}}" formControlName="activityName">
+              <mat-option *ngFor="let activity of activities" [value]="activity.activityName">
+                {{activity.activityName}}
               </mat-option>
             </mat-select>
           </mat-form-field>
+          
+          <!-- <mat-form-field>
+              <mat-option *ngFor="let p of [1,2,3]" [value]="selectedActivity.selectedActivities.activtyPriority">
+                  {{p}}
+                </mat-option>
+          </mat-form-field> -->
+
+          <!-- <mat-form-field>
+              <input matInput placeholder="priorty" [value]="activity.vounteerScore">
+          </mat-form-field> -->
 
         </div>
       </div>
+
+
       <br>
       <br>
       <mat-card-actions>
