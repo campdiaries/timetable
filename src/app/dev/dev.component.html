@@ -1,8 +1,35 @@
+<table border="1">
 
-  <h1>STUDENTS</h1>
-  {{this.students | json}}
+  <tr>
+    <td *ngFor="let session1 of this.tt['s1']| keyvalue">
+      {{session1['value']['name']}}
+    <div *ngFor="let stu1 of session1['value']['students']">
+      {{stu1 |  json}}
+    </div>
+    </td>
+  </tr>
+  <tr>
+      <td *ngFor="let session2 of this.tt['s2']| keyvalue">
+        {{session2['value']['name']}}
+      <div *ngFor="let stu2 of session2['value']['students']">
+        {{stu2 |  json}}
+      </div>
+      </td>
+    </tr>
+    <tr>
+        <td *ngFor="let session3 of this.tt['s3']| keyvalue">
+          {{session3['value']['name']}}
+        <div *ngFor="let stu3 of session3['value']['students']">
+          {{stu3 |  json}}
+        </div>
+        </td>
+      </tr>
 
+</table>
+
+
+<pre>{{this.tt | json}}</pre>
+<!-- 
 
   <h1>USERS</h1>
-  {{this.users | json}}
-
+  {{this.users | json}} -->
