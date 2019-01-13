@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 export class TimetableService {
 
   maxSessions = 3;
+  sessionSizeArr = [15,40];
   maxStudentPerSession = 25;
   _students;
   activities;
