@@ -41,23 +41,6 @@ export class AddStudentComponent implements OnInit {
 
 
 
-  onFileChange($event) {
-    // console.log($event.target.files[0])
-    this.loading = true;
-    this.actionBtnName = this.LOADIN_BTN_TXT;
-    const task = this.ds.uploadFileToStorage($event.target.files[0]);
-    task.snapshotChanges().subscribe((val) => {
-
-      val.ref.getDownloadURL().then((downloadUrl) => {
-        console.log(downloadUrl);
-        this.addStudentForm.patchValue({ profilePicUrl: downloadUrl || '' });
-        this.loading = false;
-        this.actionBtnName = this.ADD_STDNT_BTN_TXT;
-      });
-
-    });
-
-  }
 
 
   validation(): any {
@@ -95,6 +78,8 @@ export class AddStudentComponent implements OnInit {
       console.log('userObj ' + userObj);
       const userName = userObj['displayName'];
       const userEmail = userObj['email'];
+      const schoolId = localStorage.getItem('schoolId');
+      this.addStudentForm.patchValue({ schoolId: schoolId });
       this.addStudentForm.patchValue({ volName: userName });
       this.addStudentForm.patchValue({ volEmailAddress: userEmail });
       const student: Student = this.addStudentForm.value;
@@ -154,6 +139,7 @@ export class AddStudentComponent implements OnInit {
       studentGrade: 0,
       volEmailAddress: '',
       volName: '',
+      schoolId: '',
       selectedActivities: this.fb.array(this.createFGActivity(AppSettings.noOfActivitiesPerChild)),
     });
   }

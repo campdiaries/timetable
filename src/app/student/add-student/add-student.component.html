@@ -3,10 +3,10 @@
     <form [formGroup]="addStudentForm">
 
       <mat-form-field>
-        <input matInput formControlName="studentName" placeholder="Student Name" required>
+        <input matInput formControlName="studentName" placeholder="Student full Name and intials" required>
         <mat-hint>Please enter the full name</mat-hint>
         <mat-error *ngIf="addStudentForm.controls['studentName'].errors">
-          Please enter the student name
+          Please enter the student name and initals
         </mat-error>
       </mat-form-field>
       <br>

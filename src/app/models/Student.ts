@@ -8,7 +8,7 @@ export interface Student {
     volName: string;
     school: string;
     selectedActivities: SelectedActivity[];
-    schooldId: string;
+    schoolId: string;
 }
 
 export interface SelectedActivity {

@@ -68,10 +68,10 @@ export class DataService {
   getAllStudents(sortField: string, asc: boolean, schoolId: string, limit?: number) {
     if (limit) {
       return this.firestore.collection<Student>(STUDENTS_COLLECTION, ref =>
-        ref.where('schoolId', '==', schoolId).orderBy(sortField, asc ? 'asc' : 'desc').limit(limit)).valueChanges();
+        ref.orderBy(sortField, asc ? 'asc' : 'desc').limit(limit)).valueChanges();
     } else {
       return this.firestore.collection<Student>(STUDENTS_COLLECTION, ref =>
-        ref.where('schoolId', '==', schoolId).orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
+        ref.orderBy(sortField, asc ? 'asc' : 'desc')).valueChanges();
     }
   }
 
