@@ -23,9 +23,13 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "angular2-csv": "^0.2.5",
+    "angular5-csv": "^0.2.11",
     "core-js": "^2.5.4",
+    "file-saver": "^2.0.0",
     "firebase": "^5.5.5",
     "rxjs": "^6.0.0",
+    "xlsx": "^0.14.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

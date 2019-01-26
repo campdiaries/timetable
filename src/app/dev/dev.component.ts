@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../core/data-service/data-service.service';
 import { forEach } from '@angular/router/src/utils/collection';
 import * as _ from 'lodash';
-import { filter } from 'rxjs/operators';
+import { XlsxService } from '../xlsx.service';
+
 @Component({
   selector: 'app-dev',
   templateUrl: './dev.component.html',
@@ -14,12 +15,15 @@ export class DevComponent implements OnInit {
   users;
   activities;
   tt = {};
+  sessionKeys = [];
+  manualSortingLabel = [];
 
-  constructor(private ds: DataService) { }
+  constructor(private ds: DataService, private xlsService: XlsxService) { }
 
   ngOnInit() {
 
     this.tt = { s1: [], s2: [], s3: [] }; // time table has 3 sessions
+    this.sessionKeys = Object.keys(this.tt);
     this.ds.getAllActivities('name', true).subscribe(data => {
       data.forEach((activity) => { // getting all activity and assigning student count of 0 to each activity
         activity.count = 0;
@@ -37,6 +41,8 @@ export class DevComponent implements OnInit {
       this.calculateCounts(); // this will calculate the no of students for each activity
 
     });
+
+
   }
 
   calculateCounts() {
@@ -97,7 +103,7 @@ export class DevComponent implements OnInit {
         //   console.log('repeat found');
         // }
 
-        if (checkRepeat || availAct[0]['students'].length > 25) {
+        if (checkRepeat || availAct[0]['students'].length > 25 || availAct[0]['students'].length < 1) {
           // 2 condtions to get the next session instad of assigning to current decided session
           const nexSess = this.getNextSessionNo(sess); // calculate next session
 
@@ -110,7 +116,6 @@ export class DevComponent implements OnInit {
 
         if (itemProc === array.length) {
           this.printDuplicateStudents(); // print all the outliers whom manually have to be sorted
-
         }
 
       });
@@ -118,6 +123,15 @@ export class DevComponent implements OnInit {
 
     });
 
+
+  }
+
+
+
+  getSessionNoBySesStr(sessStr: string) {
+
+    const sessBreak = sessStr.charAt(1);
+    return parseInt(sessBreak, 10);
 
   }
 
@@ -195,7 +209,13 @@ export class DevComponent implements OnInit {
       if (this.isStudentHaving2ActIn1Ses(stu)) {
         f = 1;
 
-        console.log(stu['studentName']);
+        if (this.manualSortingLabel.indexOf(stu['studentName']) === -1) {
+          this.manualSortingLabel.push(stu['studentName']);
+
+          console.log(stu['studentName']);
+        }
+
+
 
       }
 
@@ -207,6 +227,30 @@ export class DevComponent implements OnInit {
       return false;
     }
 
+  }
+
+  downloadXls(session) {
+    console.log(this.tt);
+    const session1 = [];
+
+    this.tt[session].forEach((act) => {
+      const actName = act['name'];
+
+      act['students'].forEach((stu) => {
+
+        session1.push({ 'activity': actName, 'student': stu['studentName'] });
+
+      });
+
+      session1.push({ 'activity': '', 'student': '' });
+
+
+
+
+
+
+    });
+    this.xlsService.exportAsExcelFile(session1, session);
   }
 
 

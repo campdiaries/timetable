@@ -1,4 +1,122 @@
-<table border="1">
+<div class="container">
+    <br>
+    <br>
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Manual sorting required for the following students</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stu of manualSortingLabel">
+            <td>{{stu}}</td>
+    
+          </tr>
+        </tbody>
+      </table>
+
+    <button (click)="downloadXls('s1')">Download Session 1</button>
+    <button (click)="downloadXls('s2')">Download Session 2</button>
+    <button (click)="downloadXls('s3')">Download Session 3</button>
+    <br>
+    
+
+    <br>
+
+  <div class="row">
+    <div class="col-md-4">
+      <table class="table" border="1" style=" float:left;">
+
+        <thead>
+          <tr>
+            <th>Session 1</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr *ngFor="let act of this.tt['s1'] | keyvalue">
+            <td class="cell-height">
+              <b>{{act['value']['name']}}</b>
+
+              <div *ngFor="let stu1 of act['value']['students']">
+                {{stu1['studentName']}}
+              </div>
+
+            </td>
+
+          </tr>
+        </tbody>
+
+
+      </table>
+    </div>
+
+    <div class="col-md-4">
+      <table class="table" border="1" style=" float:left;">
+
+        <thead>
+          <tr>
+            <th>Session 2</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr *ngFor="let act of this.tt['s2'] | keyvalue">
+            <td class="cell-height">
+              <b> {{act['value']['name']}}</b>
+
+              <div *ngFor="let stu1 of act['value']['students']">
+                {{stu1['studentName']}}
+              </div>
+
+            </td>
+
+          </tr>
+        </tbody>
+
+
+      </table>
+    </div>
+
+    <div class="col-md-4">
+      <table class="table" border="1" style=" float:left;">
+
+        <thead>
+          <tr>
+            <th>Session 3</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr *ngFor="let act of this.tt['s3'] | keyvalue">
+            <td class="cell-height">
+              <b> {{act['value']['name']}}</b>
+              <div *ngFor="let stu1 of act['value']['students']">
+                {{stu1['studentName']}}
+              </div>
+
+            </td>
+
+          </tr>
+        </tbody>
+
+
+      </table>
+    </div>
+
+  </div>
+
+
+
+  <br>
+
+  
+
+  
+
+</div>
+
+<!-- <table border="1">
 
   <tr>
     <td *ngFor="let session1 of this.tt['s1']| keyvalue">
@@ -27,14 +145,6 @@
     </td>
   </tr>
 
-</table>
+</table> -->
 
-<!-- <pre>{{this.tt['s1'][0]['students'] | json}}</pre>
-<pre>{{this.tt['s2'][0] | json}}</pre>
-<pre>{{this.tt['s3'][0]['students'] | json}}</pre>
- -->
-<pre>{{this.students | json}}</pre>
-<!-- 
-
-  <h1>USERS</h1>
-  {{this.users | json}} -->
+<!-- <pre>{{this.students | json}}</pre> -->

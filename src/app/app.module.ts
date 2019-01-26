@@ -41,6 +41,8 @@ import { TimetableComponent } from './timetable/timetable.component';
 import { DevComponent } from './dev/dev.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SetSchoolModalComponent } from './ui-components/set-school-modal/set-school-modal.component';
+import {MatTableModule} from '@angular/material/table';
+
 
 
 @NgModule({
@@ -86,7 +88,8 @@ import { SetSchoolModalComponent } from './ui-components/set-school-modal/set-sc
     MatListModule,
     MatTabsModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
